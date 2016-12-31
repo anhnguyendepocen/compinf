@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' 1D expectation maximisation\n#' \n#' @param x The mixture data\n#' @param mu The initial estimate of the means\n#' @param phi The initial estimates of the weights\n#' @return A list with the results\nem <- function(x, mu, phi, maxIterations=1000) {\n  #save the initial estimates for monitoring the results\n  initialMu <- mu\n  initialPhi <- phi\n  #K, the number of component distributions\n  numberOfDistributions <- length(mu)\n  \n  densityK <- matrix(nrow=length(x), ncol=length(mu),byrow=T)\n  densityAll <- rep(0, length(x))\n  converged <- FALSE\n  #variables used for monitoring convergence\n  i <- 0\n  prevMu <- rep(0, numberOfDistributions)\n  prevPhi <- rep(0, numberOfDistributions)\n  \n  #continue until all parameter estimates have converged\n  while(!converged)\n  {\n    i <- i+1\n    #E-Step: calulate the likelihood that each point belongs to each distribution \n    densityAll <- rep(0, length(x))\n    for(k in 1:numberOfDistributions)\n    {\n      densityAll <- densityAll + (dnorm(x, mu[k], 1)*phi[k])\n    }\n    \n    for(k in 1:numberOfDistributions)\n    {\n      densityK[,k] <- (dnorm(x, mu[k], 1)*phi[k])/densityAll\n    }\n    \n    #M-Step: use the likelihood to update the parameter estimates\n    for(k in 1:numberOfDistributions)\n    {\n      mu[k] <- sum(densityK[,k]*x)/sum(densityK[,k])  \n      phi[k] <- sum(densityK[,k])/length(x)\n    }\n    \n    #check if all parameters have converged or the max iterations has been reached\n    converged <- (mu - prevMu <10^-10) && (phi - prevPhi == 0)\n    if (i > maxIterations)\n    {\n      converged = T\n      message(\"Exiting as parameters are converging to slowly: diff mu = \", mu - prevMu,  \" diff phi = \", phi - prevPhi)\n    }\n    prevMu <- mu\n    prevPhi <- phi\n  }\n  list(\"densityAll\"=densityAll, \"densityK\"=densityK, \"mu\"=mu, \"phi\"=phi, \"iterations\"=i, \"initialMu\"= initialMu,\n       \"initialPhi\"=initialPhi)\n}",
+    "created" : 1483188306993.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2249764574",
+    "id" : "E3F71CE3",
+    "lastKnownWriteTime" : 1483194727,
+    "last_content_update" : 1483194727797,
+    "path" : "D:/projects/compinf/lib/em.R",
+    "project_path" : "lib/em.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#compare sample variance of ceramic strength from two different batchs.\nbatch1 <- Ceramic[Ceramic$batch==1,]$strength\nbatch2 <- Ceramic[Ceramic$batch==2,]$strength\n\n#the distrbutions of each batch are not Normal\nmypar(mfrow=c(2,1))\nhist(batch1, xlim=c(300,900), xlab=\"Batch 1 Strength\", main=\"\",nclass=19)\nabline(v=mean(batch1), col='blue')\nabline(v=c(mean(batch1)-sd(batch1), mean(batch1)+sd(batch1)), col='red')\nhist(batch2, xlim=c(300,900), xlab=\"Batch 2 Strength\", main=\"\",nclass=19)\nabline(v=mean(batch2), col='blue')\nabline(v=c(mean(batch2)-sd(batch2), mean(batch2)+sd(batch2)), col='red')\nmypar(mfrow=c(1,1))\n\n#again using quantile plots\nqqnorm(batch1)\nqqnorm(batch2)\n\n#variance of batch 1 appears greater than batch 2\nvar(batch1)/var(batch2)\n\n#assess how far the ratio is from 1\n#standard tests suggest no difference but distributions assumptions are not met\nvar.test(batch1, batch2)\nbartlett.test(list(batch1, batch2))\nbt <- bartlett.test(strength~batch, Ceramic)\nbt$statistic\nfligner.test(list(batch1, batch2))\n\n\n#95% CIs contains 1, therefore there is no evidence to reject null hypothesis\nt1 <- twoSampleVarTest(batch1, batch2, 10000, varRatio)\nt1\n\n#same inference from bootstapped Barlett\nbootBartlett(batch1, batch2, 10000)\n\n\n\n\n\n\n\n\n\n",
+    "created" : 1483197053670.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3264745448",
+    "id" : "146D2FB3",
+    "lastKnownWriteTime" : 1483197173,
+    "last_content_update" : 1483197173626,
+    "path" : "D:/projects/compinf/src/variance_test.R",
+    "project_path" : "src/variance_test.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

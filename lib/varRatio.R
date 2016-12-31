@@ -1,0 +1,1 @@
+varRatio <- function(x1, x2) { var(x1)/var(x2)}

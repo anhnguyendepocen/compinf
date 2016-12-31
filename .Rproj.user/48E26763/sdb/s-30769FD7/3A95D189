@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "version: 0.6\ndata_loading: TRUE\ncache_loading: TRUE\nrecursive_loading: FALSE\nmunging: TRUE\nlogging: FALSE\nload_libraries: TRUE\nlibraries: mixtools, boot, rafalib\nas_factors: TRUE\ndata_tables: FALSE\nattach_internal_libraries: FALSE\n",
+    "created" : 1483194917013.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3589232188",
+    "id" : "3A95D189",
+    "lastKnownWriteTime" : 1483194925,
+    "last_content_update" : 1483194925040,
+    "path" : "D:/projects/compinf/config/global.dcf",
+    "project_path" : "config/global.dcf",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "dcf"
+}
